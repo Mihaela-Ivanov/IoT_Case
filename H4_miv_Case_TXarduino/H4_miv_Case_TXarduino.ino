@@ -102,8 +102,6 @@ void incomingStream() {
         Serial.print("An incoming person has interrupted. Number of persons in the room: ");
         Serial.println(personCount);
 
-        XBee_TX();
-
         distanceOut = 1000; //Setting distance unrealistically high to 'clear' for next comming data input.
     }
 }
@@ -130,7 +128,6 @@ void outgoingStream() {
 
         Serial.print("An outgoing person has interrupted. Number of persons in the room: ");
         Serial.println(personCount);
-        XBee_TX();
 
         distanceOut = 1000; //Setting distance unrealistically high to 'clear' for next comming data input.
     }
@@ -167,7 +164,7 @@ void setup() {
     pinMode(trigPinIn, OUTPUT); //Sets the trigPin as an OUTPUT for incoming people sensor.
     pinMode(echoPinIn, INPUT); //Sets the echoPin as an INPUT for incoming people sensor.
     //pinMode(trigPinIn, INPUT_PULLUP);//Sets ultrasonic trigger pin as input and pull up.
-    //attachInterrupt(digitalPinToInterrupt(trigPinIn), incomingStream, FALLING); //Interrupt on (pin, function to execute, flank).
+    //attachInterrupt(xdigitalPinToInterrupt(trigPinIn), incomingStream, FALLING); //Interrupt on (pin, function to execute, flank).
 
     pinMode(trigPinOut, OUTPUT); //Sets the trigPin as an OUTPUT for outgoing people sensor.
     pinMode(echoPinOut, INPUT);//Sets the echoPin as an INPUT for outgoing people sensor.
@@ -187,6 +184,7 @@ void setup() {
 
 //--- MAIN PROGRAM ---//
 void loop() {
-    checkPersonStream();
+    XBee_TX();
     checkLightState();
+    checkPersonStream();
 }//END main
